@@ -1,0 +1,709 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+
+    <title>JavaScript Design Patterns</title>
+
+    <meta name="description" content="An overview of existing solutions">
+    <meta name="author" content="Kostiantyn Tsaregradskyi">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/black.css" id="theme">
+    <link rel="stylesheet" href="css/additionalStyles.css">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'bower_components/reveal.js/css/print/pdf.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <img src="images/js_logo.png" style="height: 200px; border: none; box-shadow: none;">
+            <h3>JavaScript Design Patterns</h3>
+            <p>
+                <small>или как сделать код лучше</small>
+            </p>
+        </section>
+
+        <section>
+            <h3>Что такое паттерны?</h3>
+        </section>
+
+        <section>
+            <h3>Паттерны это</h3>
+            <ul>
+                <li>Эффетивные способы решения характерных задач проектирования</li>
+                <li>Обобщенне описание решине задачи, которое можно использовать в различных ситуациях</li>
+                <li>ОО паттерны часто показывают отношение между классами и объектами</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Паттерны это</h3>
+            <ul>
+                <li>Выверенное решение</li>
+                <li>Легко используются повторно</li>
+                <li>Формируют структуру</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>В JS паттерны не прижились?</h3>
+        </section>
+
+        <section>
+            <h3>Почему?</h3>
+            <ul>
+                <li>У меня простые задачи, зачем усложнять?</li>
+                <li>Мы ищем оптимальное решение для каждой задачи</li>
+                <li>ООП в JS и паттерны дают более ресурсоемкие решения</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Почему?</h3>
+            <ul>
+                <li>Для начинающих это «взрыв мозга», а опытным — не нужно.</li>
+                <li>Мы позволяем нашим разработчикам самим решать: использовать или не использовать паттерны</li>
+                <li>Паттерны? Какие паттерны?</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Зачем использовать паттерны?</h3>
+            <ul>
+                <li>Проверены множеством людей, что может уберечь от ошибок</li>
+                <li>Не требуют дополнительного времени на написание велосипеда</li>
+                <li>Формируют четкую и узнаваемую структуру кода</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Зачем использовать паттерны?</h3>
+            <ul>
+                <li>Обеспечивают предсказуемость кода</li>
+                <li>Упрощают поддержку и расширяемость кода</li>
+                <li>Упрощают подключение новых людей к проекту</li>
+            </ul>
+        </section>
+
+        
+        <section class="classic-patterns">
+            <h3>Классические Паттерны</h3>
+            <ul style="list-style: none; font-size: 0.5em">
+                <li><img src="images/behavioral.png"> — поведенческие</li>
+                <li><img src="images/creational.png"> — порождающие</li>
+                <li><img src="images/structural.png"> — структурные</li>
+            </ul>
+            <img src="images/patterns.jpg" alt>
+        </section>
+
+        <section class="classic-patterns-js">
+            <h2>Паттерны в JavaScript</h2>
+        </section>
+
+        <!--Javascript patterns-->
+
+        <section>
+            <h3>Module</h3>
+            <pre><code>
+                (function (global, undefined) {
+
+                    //Code goes here...
+
+                }(this));
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>provides incapsulated scope and possibility of retruned value</h4>
+            <pre><code>
+                var m1 = (function (global, undefined) {
+                    var myAwesomeModule = {};
+
+                    myAwesomeModule.awesome = function () {
+                        console.log("doing awesome things...");
+                    };
+
+                    return myAwesomeModule;
+                }(this));
+
+                console.log(myAwesomeModule); //ReferenceError
+                m1.awesome(); //doing awesome things...
+                </code></pre>
+        </section>
+
+        <section>
+            <h3>Constructor</h3>
+            <pre><code>
+                function Car(make) {
+                    this.make = make;
+                };
+
+                Car.prototype.start = function () {
+                    console.log(this.make + ' is starting...');
+                };
+                </code></pre>
+            <pre><code>
+                var car = new Car('bmw');
+
+                car.start(); //bmw is starting...
+                </code></pre>
+        </section>
+        <section>
+            <h3>IIFE</h3>
+            <pre><code>
+                (function(){ /* useful code */ }());
+            </code></pre>
+            <pre><code>
+                var Car = (function () {
+                    function Car() {}
+
+                    Car.prototype.start = function () {};
+
+                    return Car;
+                }());
+
+                var car = new Car('bmw');
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Closure</h3>
+            <pre><code>
+                function multiplier(baseValue) {
+                    return function (value) {
+                        return baseValue * value;
+                    }
+                }
+
+                var doubler = multiplier(2);
+
+                doubler(5); // 10
+                doubler(3); // 6
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Mixin</h3>
+            <pre><code>
+        var flyable = function () {
+            this.fly = function () {
+                console.log("I'm flying through the clouds...");
+            }
+        };
+            </code></pre>
+            <pre><code>
+        function Car (make) {
+            this.make = make;
+            //use mixin
+            flyable.call(this);
+        };
+
+        var car  = new Car('bmw');
+        car.fly(); //I'm flying through the clouds...
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Callback</h3>
+            <pre><code class="javascript">
+                function callback(data) {
+                    console.log(data);
+                }
+
+                //events
+                window.onload = callback;
+
+                //async operation
+                jQuery.ajax.get('some-url.com', callback);
+
+                //regular sync operations
+                function sum(value1, value2, callback) {
+                    var result = value1 + value2;
+                    callback(result);
+                }
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>А где паттерны?</h3>
+            <img src="images/mem_girl.jpg" alt>
+        </section>
+
+        <!--OOP patterns-->
+
+        <section>
+            <h3>Singleton</h3>
+            <pre><code class="javascript">
+                const singleton = {
+
+                    //properties and methods...
+
+                };
+
+                export default singleton;
+            </code></pre>
+        </section>
+
+        <section>
+            <p>userProfile.js</p>
+            <pre><code class="javascript">
+                const userProfile = {
+                    name: 'John Smith',
+                    id: '123',
+                    logged: true,
+                    isLogged() {
+                        return this.isLogged();
+                    }
+                };
+
+                export default userProfile;
+            </code></pre>
+            <p>main.js</p>
+            <pre><code>
+                import user from './userProfile';
+
+                user.name //John Smith
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Factory</h3>
+            <pre><code class="javascript">
+        export default function objectsFactory(type) {
+            switch (type) {
+                case 'type1': return new ConcreteType1();
+                case 'type2': return new ConcreteType2();
+                case 'type3': return new ConcreteType3();
+                default: return new ConcreteTypeDefault();
+            }
+        }
+            </code></pre>
+        </section>
+
+        <section>
+            <p>carsFactory.js</p>
+            <pre><code class="javascript">
+    export default function carsFactory(make) {
+        switch (make) {
+            case 'bmw': return new BmwX6();
+            case 'rangeRover': return new RangeRowerSport();
+            case 'audi': return new AudiTT();
+            default: return new Tesla();
+        }
+    }
+            </code></pre>
+            <p>main.js</p>
+            <pre><code>
+    import carsFactory from './carsFactory';
+
+    const car = carsFactory('bmw');
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Observer</h3>
+            <pre><code class="javascript">
+    function Observer() {
+        this.events = {};
+        this.on = function (event, callback) {};
+        this.off = function (event, callback) {};
+        this.emit = function (event, payload) {};
+    }
+
+    export default Observer;
+            </code></pre>
+        </section>
+
+        <section>
+            <p>on</p>
+            <pre><code class="javascript">
+    function Observer() {
+        ...
+        this.on = function (event, callback) {
+            if (!this.events[event]) {
+                this.events[event] = [];
+            }
+            this.events[event].push(callback);
+        };
+        ...
+    }
+            </code></pre>
+        </section>
+
+        <section>
+            <p>off</p>
+            <pre><code class="javascript">
+function Observer() {
+    ...
+    this.off = function (event, callback) {
+        if (this.events[event]
+                && this.events[event].indexOf(callback) !== -1) {
+            this.events[event]
+                .splice(this.events[event].indexOf(callback), 1);
+        }
+    };
+    ...
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <p>emit</p>
+            <pre><code class="javascript">
+    function Observer() {
+        ...
+        this.emit = function (event, payload) {
+            if(this.events[event]) {
+                this.events[event].forEach((callback) => {
+                    callback(payload);
+                });
+            }
+        };
+    }
+            </code></pre>
+        </section>
+
+        <section>
+            <p>NewsChanel.js</p>
+            <pre><code class="javascript">
+    import Observer from './Observer';
+
+    export function NewsChanel() {
+        Observer.call(this);
+    }
+            </code></pre>
+            <p>main.js</p>
+            <pre><code class="javascript">
+    import NewsChanel from './NewsChanel';
+
+    const log = data => console.log(data);
+    const chanel = new NewsChanel();
+
+    chanel.on('news', log);
+    chanel.emit('news', 'lorem ipsum...');//lorem ipsum...
+    chanel.off('news', log);
+    chanel.emit('news', 'lorem ipsum...');//undefined
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Mediator</h3>
+            <pre><code class="javascript">
+        const Mediator = {
+            register(member) {
+                member.on('event', payload => {
+                    otherMember.doSomething(payload);
+                });
+            }
+        };
+
+        class Member {
+            constructor() {
+                Observer.call(this);
+            }
+        }
+            </code></pre>
+        </section>
+
+        <section>
+            <p>Dealer.js</p>
+            <pre><code class="javascript">
+                const Dealer = {
+                    buyers: [],
+                    sellers: [],
+                    register(member) {},
+                    request(product) {}
+                };
+            </code></pre>
+        </section>
+
+        <section>
+            <p>register</p>
+            <pre><code class="javascript">
+        const Dealer = {
+            ...
+            register(member) {
+                member.on('sell', product => {
+                    this.sellers.push({ member, product });
+                    this.request(product);
+                });
+                member.on('buy', product => {
+                    this.buyers.push({ member, product });
+                    this.request(product);
+                });
+            }
+            ...
+        };
+            </code></pre>
+        </section>
+
+        <section>
+            <p>request</p>
+            <pre><code class="javascript">
+const Dealer = {
+    request(product) {
+        const seller = this.sellers.find(seller =>
+            seller.product === product);
+        const buyer = this.buyers.find(buyer => {
+            buyer.product === product);
+        if (seller && buyer) {
+            seller.member.sell(product, buyer.member);
+            buyer.member.buy(product, seller.member);
+            this.sellers.splice(this.sellers.indexOf(seller), 1);
+            this.buyers.splice(this.buyers.indexOf(buyer), 1);
+        }
+    }
+};
+            </code></pre>
+        </section>
+
+        <section>
+            <p>Member.js</p>
+            <pre><code class="javascript">
+    class Member {
+        constructor(name) {
+            this.name = name;
+            Observer.call(this);
+        }
+        sell(product, buyer) {
+            console.log(`
+                ${this.name} sells ${product} to ${buyer.name}`);
+        }
+        buy(product, seller) {
+            console.log(`
+                ${this.name} buys ${product} from ${seller.name}`);
+        }
+    }
+            </code></pre>
+        </section>
+
+        <section>
+            <p>main.js</p>
+            <pre><code class="javascript">
+        const fill = new Member('fill');
+        const adam = new Member('adam');
+        const joe = new Member('joe');
+
+        Dealer.register(fill);
+        Dealer.register(adam);
+        Dealer.register(joe);
+
+        fill.emit('sell', 'bmw');
+        fill.emit('buy', 'iphone');
+        adam.emit('buy', 'audi');
+        adam.emit('sell', 'iphone');// adam sells iphone to fill
+                                    // fill buys iphone from adam
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Proxy</h3>
+            <pre><code class="javascript">
+                const original = {
+                    //properties and methods
+                };
+
+                const proxy = new Proxy(original, {
+                    set(obj, prop, value) {
+                        //intercession
+                        obj[prop] = value;
+                    },
+                    get(obj, prop) {
+                        //intercession
+                        return obj[prop];
+                    }
+                });
+            </code></pre>
+            <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Proxy" style="font-size: .6em;">https://developer.mozilla.org/.../Proxy</a>
+        </section>
+
+        <section>
+            <p>Human.js</p>
+            <pre><code class="javascript">
+class Human {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    greet() {
+        console.log(`
+            Hello from ${this.name}, I'm ${this.age} years old!`);
+    }
+}
+
+export default Human;
+            </code></pre>
+        </section>
+
+        <section>
+            <p>HumanProxy.js</p>
+            <pre><code class="javascript">
+    class HumanProxy {
+        constructor(human) {
+            return new Proxy(human, {
+                set(obj, prop, value) {
+                    if (prop === 'age') {
+                        if (Number.isInteger(value) && value > 0) {
+                            obj[prop] = value;
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    export default HumanProxy;
+            </code></pre>
+        </section>
+
+        <section>
+            <p>main.js</p>
+            <pre><code class="javascript">
+        import Human from './Human';
+        import HumanProxy from './HumanProxy';
+
+        const human = new Human('Joe', 23);
+        const humanProxy = new HumanProxy(human);
+
+        humanProxy.age// 23
+        humanProxy.age = -100500;
+        humanProxy.greet();//Hello from Joe, I'm 23 years old!
+        humanProxy.age = 30;
+        humanProxy.greet();//Hello from Joe, I'm 30 years old!
+
+        human// {name: 'Joe', age: 30}
+            </code></pre>
+        </section>
+
+        <!--Complex patterns-->
+
+        <section>
+            <h3>MVC</h3>
+            <img src="images/mvc.png" alt>
+        </section>
+
+        <section>
+            <h3>Эволюция MVC</h3>
+            <img src="images/mvc_mvp_mvvm.jpg" alt>
+        </section>
+
+        <section>
+            <h3>MVVM</h3>
+            <img src="images/mvvm.png" style="height: 7em;" alt>
+            <p><a href="https://ru.wikipedia.org/wiki/Model-View-ViewModel">https://ru.wikipedia.org/wiki/Model-View-ViewModel</a>
+            </p>
+        </section>
+
+        <section class="frameworks">
+            <h3>Популярные фреймверки</h3>
+            <img src="images/angular.png" alt>     
+            <img src="images/vue.png" alt><br>
+            <img src="images/react.png" alt>
+        </section>
+
+        <section>
+            <h3>Flux</h3>
+            <img src="images/flux.png" alt>
+        </section>
+
+        <section>
+            <h3>Redux</h3>
+            <img src="images/redux_flow.jpg" alt style="height: 13em;">
+            <p><a href="http://redux.js.org/">http://redux.js.org/</a></p>
+        </section>
+
+        <section>
+            <h3>Vuex</h3>
+            <img src="images/vuex.png" alt style="height: 13em;">
+            <p><a href="https://vuex.vuejs.org">https://vuex.vuejs.org</a></p>
+        </section>
+
+        <section class="books">
+            <h3>Литература</h3>
+            <img src="images/patterns_gof.jpg" alt>
+            <img src="images/hf_7.jpeg">
+            <img src="images/js_patterns_stoyan.jpg">
+            <img src="images/js_patterns_addy.jpg">
+            <ul>
+                <li>Стоян Стефанов - <a target="_blank" href="http://www.millionagents.com/upload/iblock/60a/60a2d4c128b04e20d652754fd627aced.pdf">Шаблоны
+                    JavaScript</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Вопросы?</h1>
+        </section>
+
+        <section>
+            <p>Презентация создана с помощью <a target="_blank" href="http://lab.hakim.se/reveal-js/">Reveal.js</a></p>
+        </section>
+
+        <section>
+            <h1>Спасибо за внимание</h1>
+        </section>
+    </div>
+
+</div>
+
+<script src="js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            {
+                src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+
+</script>
+
+
+
+</body></html>

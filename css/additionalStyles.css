@@ -1,0 +1,66 @@
+.reveal table {
+    margin: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.reveal table th {
+    font-weight: bold;
+}
+
+.reveal table th,
+.reveal table td {
+    text-align: left;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    border-bottom: 1px solid;
+}
+
+.reveal section pre code {
+    font-size: 0.9em;
+    line-height: 1em;
+}
+
+.reveal section img {
+    border: 0;
+}
+
+.reveal table tr:last-child td {
+    border-bottom: none;
+}
+
+.result li {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+section.classic-patterns ul {
+    list-style: none;
+    font-size: 0.5em;
+}
+section.classic-patterns li {
+    float: left;
+}
+section.classic-patterns img {
+    bottom: -30px;
+    position: relative;
+    margin-left: 30px;
+}
+
+section.classic-patterns-js img {
+    height: 13em;
+}
+
+section.classic-patterns-js h4 {
+    position: absolute;
+    width: 100%;
+    bottom: 50px;
+}
+
+section.books img {
+    height: 7em;
+}
+
+
+section.frameworks img {
+    height: 6em;
+}
